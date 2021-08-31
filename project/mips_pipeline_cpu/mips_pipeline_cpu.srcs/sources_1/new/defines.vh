@@ -6,7 +6,7 @@
 `define WriteDisable    1'b0    // 禁止写
 `define ReadEnable      1'b1    // 使能读
 `define ReadDisable     1'b0    // 禁止读
-`define InstValid       1'b1    // 指令有效 
+`define InstValid       1'b1    // 指令有效
 `define InstInvalid     1'b0    // 指令无效
 `define True            1'b1    // 逻辑真
 `define False           1'b0   // 逻辑假
@@ -41,12 +41,25 @@
 `define OP_OR          6'b100101   // sepcial 000000-100101
 `define OP_XOR         6'b100110   // sepcial 000000-100110
 `define OP_NOR         6'b100111   // sepcial 000000-100111
+`define OP_JR          6'b001000
+`define OP_ANDI        6'b001100
+`define OP_ORI         6'b001101
+`define OP_XORI        6'b001110
 
 `define ALU_ADD         8'h01
 `define ALU_AND         8'h02
 `define ALU_OR          8'h03
 `define ALU_NOR         8'h04
 `define ALU_XOR         8'h05
+`define ALU_JR          8'h10
 `define ALU_LW          8'h06
 `define ALU_SW          8'h07
+`define ALU_LUI         8'h08
+`define ALU_ADDIU       8'h09
+`define ALU_BEQ         8'h0a
+`define ALU_ADDI        8'h0b
+`define ALU_ANDI        8'h0c
+`define ALU_ORI         8'h0d
+`define ALU_XORI        8'h0e
+`define ALU_J           8'h0f
 
