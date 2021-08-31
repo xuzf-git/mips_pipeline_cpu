@@ -1,14 +1,14 @@
 -- Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2019.2 (win64) Build 2708876 Wed Nov  6 21:40:23 MST 2019
--- Date        : Thu Aug 26 00:47:45 2021
--- Host        : XUZFE1B3 running 64-bit major release  (build 9200)
--- Command     : write_vhdl -force -mode funcsim
---               c:/Users/xuzf/Desktop/workspace/Hardware/mips_cpu/mips_cpu.srcs/sources_1/ip/data_ram/data_ram_sim_netlist.vhdl
+-- Date        : Tue Aug 31 15:12:30 2021
+-- Host        : xuzf-pc running 64-bit major release  (build 9200)
+-- Command     : write_vhdl -force -mode funcsim -rename_top data_ram -prefix
+--               data_ram_ data_ram_sim_netlist.vhdl
 -- Design      : data_ram
 -- Purpose     : This VHDL netlist is a functional simulation representation of the design and should not be modified or
 --               synthesized. This netlist cannot be used for SDF annotated simulation.
--- Device      : xc7a35tcsg324-1
+-- Device      : xc7a100tcsg324-1
 -- --------------------------------------------------------------------------------
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
@@ -22,8 +22,6 @@ entity data_ram_spram is
     a : in STD_LOGIC_VECTOR ( 9 downto 0 );
     we : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of data_ram_spram : entity is "spram";
 end data_ram_spram;
 
 architecture STRUCTURE of data_ram_spram is
@@ -3492,8 +3490,6 @@ entity data_ram_dist_mem_gen_v8_0_13_synth is
     a : in STD_LOGIC_VECTOR ( 9 downto 0 );
     we : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of data_ram_dist_mem_gen_v8_0_13_synth : entity is "dist_mem_gen_v8_0_13_synth";
 end data_ram_dist_mem_gen_v8_0_13_synth;
 
 architecture STRUCTURE of data_ram_dist_mem_gen_v8_0_13_synth is
@@ -3595,8 +3591,6 @@ entity data_ram_dist_mem_gen_v8_0_13 is
   attribute C_SYNC_ENABLE of data_ram_dist_mem_gen_v8_0_13 : entity is 1;
   attribute C_WIDTH : integer;
   attribute C_WIDTH of data_ram_dist_mem_gen_v8_0_13 : entity is 32;
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of data_ram_dist_mem_gen_v8_0_13 : entity is "dist_mem_gen_v8_0_13";
 end data_ram_dist_mem_gen_v8_0_13;
 
 architecture STRUCTURE of data_ram_dist_mem_gen_v8_0_13 is

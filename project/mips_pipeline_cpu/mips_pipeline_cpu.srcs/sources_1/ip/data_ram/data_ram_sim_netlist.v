@@ -1,14 +1,14 @@
 // Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2019.2 (win64) Build 2708876 Wed Nov  6 21:40:23 MST 2019
-// Date        : Thu Aug 26 00:47:45 2021
-// Host        : XUZFE1B3 running 64-bit major release  (build 9200)
-// Command     : write_verilog -force -mode funcsim
-//               c:/Users/xuzf/Desktop/workspace/Hardware/mips_cpu/mips_cpu.srcs/sources_1/ip/data_ram/data_ram_sim_netlist.v
+// Date        : Tue Aug 31 15:12:29 2021
+// Host        : xuzf-pc running 64-bit major release  (build 9200)
+// Command     : write_verilog -force -mode funcsim -rename_top data_ram -prefix
+//               data_ram_ data_ram_sim_netlist.v
 // Design      : data_ram
 // Purpose     : This verilog netlist is a functional simulation representation of the design and should not be modified
 //               or synthesized. This netlist cannot be used for SDF annotated simulation.
-// Device      : xc7a35tcsg324-1
+// Device      : xc7a100tcsg324-1
 // --------------------------------------------------------------------------------
 `timescale 1 ps / 1 ps
 
@@ -97,7 +97,7 @@ endmodule
 (* C_MEM_INIT_FILE = "no_coe_file_loaded" *) (* C_MEM_TYPE = "1" *) (* C_PARSER_TYPE = "1" *) 
 (* C_PIPELINE_STAGES = "0" *) (* C_QCE_JOINED = "0" *) (* C_QUALIFY_WE = "0" *) 
 (* C_READ_MIF = "0" *) (* C_REG_A_D_INPUTS = "0" *) (* C_REG_DPRA_INPUT = "0" *) 
-(* C_SYNC_ENABLE = "1" *) (* C_WIDTH = "32" *) (* ORIG_REF_NAME = "dist_mem_gen_v8_0_13" *) 
+(* C_SYNC_ENABLE = "1" *) (* C_WIDTH = "32" *) 
 module data_ram_dist_mem_gen_v8_0_13
    (a,
     d,
@@ -247,7 +247,6 @@ module data_ram_dist_mem_gen_v8_0_13
         .we(we));
 endmodule
 
-(* ORIG_REF_NAME = "dist_mem_gen_v8_0_13_synth" *) 
 module data_ram_dist_mem_gen_v8_0_13_synth
    (spo,
     clk,
@@ -274,7 +273,6 @@ module data_ram_dist_mem_gen_v8_0_13_synth
         .we(we));
 endmodule
 
-(* ORIG_REF_NAME = "spram" *) 
 module data_ram_spram
    (spo,
     clk,

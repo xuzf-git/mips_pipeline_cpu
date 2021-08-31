@@ -1,13 +1,13 @@
 // Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2019.2 (win64) Build 2708876 Wed Nov  6 21:40:23 MST 2019
-// Date        : Thu Aug 26 00:47:45 2021
-// Host        : XUZFE1B3 running 64-bit major release  (build 9200)
-// Command     : write_verilog -force -mode synth_stub
-//               c:/Users/xuzf/Desktop/workspace/Hardware/mips_cpu/mips_cpu.srcs/sources_1/ip/data_ram/data_ram_stub.v
+// Date        : Tue Aug 31 15:12:29 2021
+// Host        : xuzf-pc running 64-bit major release  (build 9200)
+// Command     : write_verilog -force -mode synth_stub -rename_top data_ram -prefix
+//               data_ram_ data_ram_stub.v
 // Design      : data_ram
 // Purpose     : Stub declaration of top-level module interface
-// Device      : xc7a35tcsg324-1
+// Device      : xc7a100tcsg324-1
 // --------------------------------------------------------------------------------
 
 // This empty module with port declaration file causes synthesis tools to infer a black box for IP.
