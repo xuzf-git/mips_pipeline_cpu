@@ -1,79 +1,106 @@
 `timescale 1ns / 1ps
 `include "defines.vh"
 //////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
+// Company:
+// Engineer:
+//
 // Create Date: 2021/08/26 12:53:25
-// Design Name: 
+// Design Name:
 // Module Name: regfile
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
+// Project Name:
+// Target Devices:
+// Tool Versions:
 // Description: ÊµÏÖÁË 32 ¸ö 32 Î»Í¨ÓÃÕûÊı¼Ä´æÆ÷
-// 
-// Dependencies: 
-// 
+//
+// Dependencies:
+//
 // Revision:
 // Revision 0.01 - File Created
 // Additional Comments:
-// 
+//
 //////////////////////////////////////////////////////////////////////////////////
 
 
 module regfile(
-    input   wire    clk,
-    input   wire    rst,
+         input   wire    clk,
+         input   wire    rst,
 
-    // ¼Ä´æÆ÷Ğ´Èë¶Ë¿Ú£º1¸ö
-    input   wire    we_i,
-    input   wire[`RegAddrBus]   waddr_i,
-    input   wire[`RegBus]       wdata_i,
-    // ¼Ä´æÆ÷¶Á³ö¶Ë¿Ú£º2¸ö
-    input   wire    re1_i,
-    input   wire    re2_i,
-    input   wire[`RegAddrBus]   raddr1_i,
-    input   wire[`RegAddrBus]   raddr2_i,
-    output  reg[`RegBus]        rdata1_o,
-    output  reg[`RegBus]        rdata2_o
-    );
+         // ¼Ä´æÆ÷Ğ´Èë¶Ë¿Ú£º1¸ö
+         input   wire    we_i,
+         input   wire[`RegAddrBus]   waddr_i,
+         input   wire[`RegBus]       wdata_i,
+         // ¼Ä´æÆ÷¶Á³ö¶Ë¿Ú£º2¸ö
+         input   wire    re1_i,
+         input   wire    re2_i,
+         input   wire[`RegAddrBus]   raddr1_i,
+         input   wire[`RegAddrBus]   raddr2_i,
+         output  reg[`RegBus]        rdata1_o,
+         output  reg[`RegBus]        rdata2_o
+       );
 
-    //********  32¸ö¼Ä´æÆ÷  ********
-    reg[`RegBus]    regs[`RegNum-1:0];
+//********  32¸ö¼Ä´æÆ÷  ********
+reg[`RegBus]    regs[`RegNum-1:0];
 
-    //********  Ğ´¼Ä´æÆ÷  ********
-    always @(posedge clk) begin
-        if (rst == `RstDisable) begin
-            if ((we_i == `WriteEnable) && (waddr_i != `RegAddrNone)) begin
-                regs[waddr_i] <= wdata_i;
-            end
-        end
-    end
+//********  Ğ´¼Ä´æÆ÷  ********
+always @(posedge clk)
+  begin
+    if (rst == `RstDisable)
+      begin
+        if ((we_i == `WriteEnable) && (waddr_i != `RegAddrNone))
+          begin
+            regs[waddr_i] <= wdata_i;
+          end
+      end
+  end
 
-    //********  ¶Á¼Ä´æÆ÷ 1  ********
-    always @(*) begin
-        if (rst == `RstEnable) begin
-            rdata1_o <= `ZeroWord;
-        end else if (raddr1_i == `RegAddrNone) begin
-            rdata1_o <= `ZeroWord;
-        end else if (re1_i == `ReadEnable) begin
-            rdata1_o <= regs[raddr1_i];
-        end else begin
-            rdata1_o <= `ZeroWord;
-        end 
-    end
+//********  ¶Á¼Ä´æÆ÷ 1  ********
+always @(*)
+  begin
+    if (rst == `RstEnable)
+      begin
+        rdata1_o <= `ZeroWord;
+      end
+    else if (raddr1_i == `RegAddrNone)
+      begin
+        rdata1_o <= `ZeroWord;
+      end
+    else if(raddr1_i == waddr_i && we_i == `WriteEnable && re1_i == `ReadEnable)
+      begin
+        rdata1_o <= wdata_i;
+      end
+    else if (re1_i == `ReadEnable)
+      begin
+        rdata1_o <= regs[raddr1_i];
+      end
+    else
+      begin
+        rdata1_o <= `ZeroWord;
+      end
+  end
 
-    //********  ¶Á¼Ä´æÆ÷ 2  ********
-    always @(*) begin
-        if (rst == `RstEnable) begin
-            rdata2_o <= `ZeroWord;
-        end else if (raddr2_i == `RegAddrNone) begin
-            rdata2_o <= `ZeroWord;
-        end else if (re2_i == `ReadEnable) begin
-            rdata2_o <= regs[raddr2_i];
-        end else begin
-            rdata2_o <= `ZeroWord;
-        end 
-    end
+//********  ¶Á¼Ä´æÆ÷ 2  ********
+always @(*)
+  begin
+    if (rst == `RstEnable)
+      begin
+        rdata2_o <= `ZeroWord;
+      end
+    else if (raddr2_i == `RegAddrNone)
+      begin
+        rdata2_o <= `ZeroWord;
+      end
+    else if(raddr2_i == waddr_i && we_i == `WriteEnable && re2_i == `ReadEnable)
+      begin
+        rdata2_o <= wdata_i;
+      end
+    else if (re2_i == `ReadEnable)
+      begin
+        rdata2_o <= regs[raddr2_i];
+      end
+    else
+      begin
+        rdata2_o <= `ZeroWord;
+      end
+  end
 
 endmodule

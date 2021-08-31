@@ -159,7 +159,7 @@ always @(*)
         end
       `OP_LUI:
         begin
-          alu_sel_o <= `ALU_LUI;
+          alu_sel_o <= `ALU_OR;
           reg_we_o <= `WriteEnable;
           reg_waddr_o <= opnd_rt;
           reg_re1_o <= `ReadEnable;
@@ -169,7 +169,7 @@ always @(*)
         end
       `OP_ADDIU:
         begin
-          alu_sel_o <= `ALU_ADDIU;
+          alu_sel_o <= `ALU_ADD;
           reg_we_o <= `WriteEnable;
           reg_waddr_o <= opnd_rt;
           reg_re1_o <= `ReadEnable;
@@ -211,7 +211,7 @@ always @(*)
         end
       `OP_ADDI:
         begin
-          alu_sel_o <= `ALU_ADDI;
+          alu_sel_o <= `ALU_ADD;
           reg_we_o <= `WriteEnable;
           reg_waddr_o <= opnd_rt;
           reg_re1_o <= `ReadEnable;
@@ -221,7 +221,7 @@ always @(*)
         end
       `OP_ANDI:
         begin
-          alu_sel_o <= `ALU_ANDI;
+          alu_sel_o <= `ALU_AND;
           reg_we_o <= `WriteEnable;
           reg_waddr_o <= opnd_rt;
           reg_re1_o <= `ReadEnable;
@@ -231,7 +231,7 @@ always @(*)
         end
       `OP_ORI:
         begin
-          alu_sel_o <= `ALU_ORI;
+          alu_sel_o <= `ALU_OR;
           reg_we_o <= `WriteEnable;
           reg_waddr_o <= opnd_rt;
           reg_re1_o <= `ReadEnable;
@@ -241,7 +241,7 @@ always @(*)
         end
       `OP_XORI:
         begin
-          alu_sel_o <= `ALU_XORI;
+          alu_sel_o <= `ALU_XOR;
           reg_we_o <= `WriteEnable;
           reg_waddr_o <= opnd_rt;
           reg_re1_o <= `ReadEnable;

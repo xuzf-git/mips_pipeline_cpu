@@ -51,15 +51,6 @@
 `define ALU_OR          8'h03
 `define ALU_NOR         8'h04
 `define ALU_XOR         8'h05
-`define ALU_JR          8'h10
 `define ALU_LW          8'h06
 `define ALU_SW          8'h07
-`define ALU_LUI         8'h08
-`define ALU_ADDIU       8'h09
-`define ALU_BEQ         8'h0a
-`define ALU_ADDI        8'h0b
-`define ALU_ANDI        8'h0c
-`define ALU_ORI         8'h0d
-`define ALU_XORI        8'h0e
-`define ALU_J           8'h0f
 
