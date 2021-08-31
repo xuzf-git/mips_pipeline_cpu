@@ -6,3 +6,4 @@ mips_pipeline_cpu.cache/
 mips_pipeline_cpu.hw/
 mips_pipeline_cpu.ip_user_files/
 mips_pipeline_cpu.sim/
+*/.vscode/*
