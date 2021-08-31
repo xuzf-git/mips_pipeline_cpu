@@ -2,10 +2,12 @@
 /project/**/mips_pipeline_cpu.hw/*
 /project/**/mips_pipeline_cpu.ip_user_files/*
 /project/**/mips_pipeline_cpu.sim/*
+/project/**/mips_pipeline_cpu.runs/*
 /project/**/mips_pipeline_cpu.cache/
 /project/**/mips_pipeline_cpu.hw/
 /project/**/mips_pipeline_cpu.ip_user_files/
 /project/**/mips_pipeline_cpu.sim/
+/project/**/mips_pipeline_cpu.runs/
 */.vscode/*
 *.log
 *.jou
