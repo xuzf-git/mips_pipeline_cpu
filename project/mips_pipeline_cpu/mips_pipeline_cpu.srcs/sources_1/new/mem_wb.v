@@ -10,7 +10,7 @@
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
-// Description: 灏嗚瀛橀樁娈电殑杩愮畻缁撴灉锛屽湪涓嬩竴涓椂閽熷懆鏈熶紶閫掑埌鍐欏洖闃舵
+// Description: 将访存阶段的运算结果，在下一个时钟周期传递到写回阶段
 // 
 // Dependencies: 
 // 

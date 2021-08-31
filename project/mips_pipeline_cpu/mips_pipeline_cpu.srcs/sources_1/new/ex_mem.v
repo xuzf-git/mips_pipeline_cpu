@@ -10,7 +10,7 @@
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
-// Description: å°†æ‰§è¡Œé˜¶æ®µçš„è¿ç®—ç»“æœï¼Œåœ¨ä¸‹ä¸€ä¸ªæ—¶é’Ÿå‘¨æœŸä¼ é€’åˆ°è®¿å­˜é˜¶æ®µ
+// Description: ½«Ö´ĞĞ½×¶ÎµÄÔËËã½á¹û£¬ÔÚÏÂÒ»¸öÊ±ÖÓÖÜÆÚ´«µİµ½·Ã´æ½×¶Î
 // 
 // Dependencies: 
 // 
@@ -25,7 +25,7 @@ module ex_mem(
     input   wire    clk,
     input   wire    rst,
 
-    // æ‰§è¡Œé˜¶æ®µçš„ä¿¡å·
+    // Ö´ĞĞ½×¶ÎµÄĞÅºÅ
     input  wire[`RegAddrBus]    ex_waddr_i,
     input  wire                 ex_we_i,
     input  wire[`RegBus]        ex_wdata_i,
@@ -33,7 +33,7 @@ module ex_mem(
     input  wire[`RegBus]        ex_ram_addr_i,
     input  wire[`RegBus]        ex_reg_rt_i,
 
-    // è¾“å‡ºåˆ°è®¿å­˜é˜¶æ®µ
+    // Êä³öµ½·Ã´æ½×¶Î
     output  reg[`RegAddrBus]    mem_waddr_o,
     output  reg                 mem_we_o,
     output  reg[`RegBus]        mem_wdata_o,

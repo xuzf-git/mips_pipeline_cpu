@@ -18,7 +18,7 @@
     "terminal.integrated.fontSize": 18,
     "terminal.integrated.cursorStyle": "line",
     "terminal.integrated.cursorBlinking": true,
-    "files.encoding": "utf8",
+    "files.encoding": "gbk",
     "files.autoGuessEncoding": false,
     "code-runner.preserveFocus": false,
     "editor.wordWrapColumn": 100,
