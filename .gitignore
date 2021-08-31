@@ -6,6 +6,7 @@
 /project/**/mips_pipeline_cpu.hw/
 /project/**/mips_pipeline_cpu.ip_user_files/
 /project/**/mips_pipeline_cpu.sim/
+*/.vscode/*
 *.log
 *.jou
 *.str
