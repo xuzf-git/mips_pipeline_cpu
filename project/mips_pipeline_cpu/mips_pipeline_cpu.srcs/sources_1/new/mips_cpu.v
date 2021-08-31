@@ -113,7 +113,7 @@ module mips_cpu(
         .ce(rom_re_o)
     );
 
-    assign rom_raddr_o = pc;
+    assign rom_raddr_o = if_id_pc_i;
 
     // 实例化 IF_ID 模块
     if_id if_id_real(
@@ -270,7 +270,7 @@ module mips_cpu(
         .mem_wdata_i(mem_wb_wdata_i),
         .wb_waddr_o(mem_wb_waddr_o),
         .wb_we_o(mem_wb_we_o),
-        .wb_wdata_o(mem_wb_wdata_o),
+        .wb_wdata_o(mem_wb_wdata_o)
     ); 
 
     // 实例化 WB 模块

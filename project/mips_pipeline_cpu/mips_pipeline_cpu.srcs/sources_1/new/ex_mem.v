@@ -38,7 +38,7 @@ module ex_mem(
     output  reg                 mem_we_o,
     output  reg[`RegBus]        mem_wdata_o,
     output  reg[`AluSelBus]     mem_alu_sel_o,
-    output  reg[`RegBus]        mem_ram_addr_i,
+    output  reg[`RegBus]        mem_ram_addr_o,
     output  reg[`RegBus]        mem_reg_rt_o
     );
 
@@ -48,14 +48,14 @@ module ex_mem(
             mem_we_o <= `WriteDisable;
             mem_wdata_o <= `ZeroWord;
             mem_alu_sel_o <= `AluSelNop;
-            mem_ram_addr_i <= `ZeroWord;
+            mem_ram_addr_o <= `ZeroWord;
             mem_reg_rt_o <= `ZeroWord;
         end else begin
             mem_waddr_o <= ex_waddr_i;
             mem_we_o <= ex_we_i;
             mem_wdata_o <= ex_wdata_i;
             mem_alu_sel_o <= ex_alu_sel_i;
-            mem_ram_addr_i <= ex_ram_addr_i;
+            mem_ram_addr_o <= ex_ram_addr_i;
             mem_reg_rt_o <= ex_reg_rt_i;
         end
     end
