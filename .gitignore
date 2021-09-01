@@ -8,8 +8,8 @@
 /project/**/mips_pipeline_cpu.ip_user_files/
 /project/**/mips_pipeline_cpu.sim/
 /project/**/mips_pipeline_cpu.runs/
-*/.vscode/*
+**/.vscode/*
 *.log
 *.jou
 *.str
-*/ip/*
+**/ip/*
