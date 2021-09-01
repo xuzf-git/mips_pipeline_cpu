@@ -71,9 +71,9 @@ module mips_cpu(
     wire[`RegBus]       id_ex_inst_o;
     
     // 连接 EX 模块和 EX_MEM 模块
-    wire                ex_mem_we_i;
-    wire[`RegAddrBus]   ex_mem_waddr_i;
-    wire[`RegBus]       ex_mem_wdata_i;
+    wire                ex_mem_we_i;        // 传回 ID 模块，解决数据相关
+    wire[`RegAddrBus]   ex_mem_waddr_i;     // 传回 ID 模块，解决数据相关
+    wire[`RegBus]       ex_mem_wdata_i;     // 传回 ID 模块，解决数据相关
     wire[`AluSelBus]    ex_mem_alu_sel_i;
     wire[`RegBus]       ex_mem_ram_addr_i;
     wire[`RegBus]       ex_mem_reg_rt_i;
@@ -87,9 +87,9 @@ module mips_cpu(
     wire[`RegBus]       ex_mem_reg_rt_o;
 
     // 连接 MEM 模块和 MEM_WB 模块
-    wire                mem_wb_we_i;
-    wire[`RegAddrBus]   mem_wb_waddr_i;
-    wire[`RegBus]       mem_wb_wdata_i;
+    wire                mem_wb_we_i;        // 传回 ID 模块解决隔一条指令数据相关
+    wire[`RegAddrBus]   mem_wb_waddr_i;     // 传回 ID 模块解决隔一条指令数据相关
+    wire[`RegBus]       mem_wb_wdata_i;     // 传回 ID 模块解决隔一条指令数据相关
 
     // 连接 MEM_WB 模块和 WB 模块
     wire                mem_wb_we_o;
@@ -140,6 +140,16 @@ module mips_cpu(
         // 来自 Regfile 模块的输入
         .reg_rdata1_i(reg_rdata1),
         .reg_rdata2_i(reg_rdata2),
+
+        // 解决相邻指令的数据相关
+        .ex_reg_wdata_i(ex_mem_wdata_i),
+        .ex_reg_waddr_i(ex_mem_waddr_i),
+        .ex_reg_we_i(ex_mem_we_i),
+
+        // 解决隔一条指令的数据相关
+        .mem_reg_wdata_i(mem_wb_wdata_i),
+        .mem_reg_waddr_i(mem_wb_waddr_i),
+        .mem_reg_we_i(mem_wb_we_i),
 
         // 输出到 Regfile 模块的信息
         .reg_re1_o(reg_re1),
