@@ -74,7 +74,7 @@ module mem(
                     mem_ram_data_o <= ex_reg_rt_i;
                 end
                 default: begin
-                    
+                    mem_ram_we <= `WriteDisable;
                 end
             endcase  
         end

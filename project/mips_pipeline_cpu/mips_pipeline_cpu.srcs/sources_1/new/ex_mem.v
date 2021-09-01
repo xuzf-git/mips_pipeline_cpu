@@ -33,6 +33,9 @@ module ex_mem(
     input  wire[`RegBus]        ex_ram_addr_i,
     input  wire[`RegBus]        ex_reg_rt_i,
 
+    // 流水线暂停信号
+    input  wire[5:0]            stop_i;
+
     // 输出到访存阶段
     output  reg[`RegAddrBus]    mem_waddr_o,
     output  reg                 mem_we_o,
@@ -50,7 +53,14 @@ module ex_mem(
             mem_alu_sel_o <= `AluSelNop;
             mem_ram_addr_o <= `ZeroWord;
             mem_reg_rt_o <= `ZeroWord;
-        end else begin
+        end else if ((stop_i[3] == `True) && (stop_i[4] == `False))begin
+            mem_waddr_o <= `RegAddrNone;
+            mem_we_o <= `WriteDisable;
+            mem_wdata_o <= `ZeroWord;
+            mem_alu_sel_o <= `AluSelNop;
+            mem_ram_addr_o <= `ZeroWord;
+            mem_reg_rt_o <= `ZeroWord;
+        end else if (stop_i[3] == `False) begin
             mem_waddr_o <= ex_waddr_i;
             mem_we_o <= ex_we_i;
             mem_wdata_o <= ex_wdata_i;

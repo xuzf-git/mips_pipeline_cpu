@@ -35,6 +35,10 @@ module mips_cpu(
     output  wire[`RegBus]    ram_data_o
     );
 
+    // 连接 CTRL 模块和其他模块
+    wire                    stopreq_from_id;
+    wire[5:0]               stop;
+
     // 连接 PC 模块和 IF_ID 模块
     wire[`RegBus]       if_id_pc_i;
 
@@ -101,10 +105,19 @@ module mips_cpu(
     wire[`RegAddrBus]   wb_waddr;
     wire[`RegBus]       wb_wdata;
 
+    // 实例化 CTRL 模块
+    ctrl ctrl_real(
+        .stopreq_from_id_i(stopreq_from_id),
+        .stop_o(stop)
+    );
+
     // 实例化 PC
     pc pc_real(
         .clk(clk),
         .rst(rst),
+        // 来自 CTRL 模块的暂停信号
+        .stop_i(stop),
+
         // 来自 ID 模块的分支转移信息
         .branch_flag_i(branch_flag),
         .branch_target_i(branch_target),
@@ -123,6 +136,8 @@ module mips_cpu(
         .if_inst_i(rom_rdata_i),
         .id_pc_o(if_id_pc_o),
         .id_inst_o(if_id_inst_o)
+        // 来自 CTRL 模块的暂停信号
+        .stop_i(stop),
     );
 
     // 实例化 ID
@@ -150,6 +165,9 @@ module mips_cpu(
         .mem_reg_wdata_i(mem_wb_wdata_i),
         .mem_reg_waddr_i(mem_wb_waddr_i),
         .mem_reg_we_i(mem_wb_we_i),
+
+        // 输出到 CTRL 模块的流水线暂停信号
+        .stopreq_from_id_o(stopreq_from_id),
 
         // 输出到 Regfile 模块的信息
         .reg_re1_o(reg_re1),
@@ -202,7 +220,9 @@ module mips_cpu(
         .ex_alu_opnd2_o(id_ex_alu_opnd2_o),
         .ex_reg_waddr_o(id_ex_reg_waddr_o),
         .ex_reg_we_o(id_ex_reg_we_o),
-        .ex_inst_o(id_ex_inst_o)
+        .ex_inst_o(id_ex_inst_o)        
+        // 来自 CTRL 模块的暂停信号
+        .stop_i(stop),
     );
 
     // 实例化 EX 模块
@@ -243,6 +263,8 @@ module mips_cpu(
         .mem_alu_sel_o(ex_mem_alu_sel_o),
         .mem_ram_addr_o(ex_mem_ram_addr_o),
         .mem_reg_rt_o(ex_mem_reg_rt_o)
+        // 来自 CTRL 模块的暂停信号
+        .stop_i(stop),
     );
 
     // 实例化 MEM 模块
@@ -281,6 +303,8 @@ module mips_cpu(
         .wb_waddr_o(mem_wb_waddr_o),
         .wb_we_o(mem_wb_we_o),
         .wb_wdata_o(mem_wb_wdata_o)
+        // 来自 CTRL 模块的暂停信号
+        .stop_i(stop),
     ); 
 
     // 实例化 WB 模块
