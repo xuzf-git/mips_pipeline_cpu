@@ -28,6 +28,7 @@ module mem_wb(
     input   wire[`RegAddrBus]   mem_waddr_i,
     input   wire                mem_we_i,
     input   wire[`RegBus]       mem_wdata_i,
+    input   wire[5:0]           stop_i,
 
     output  reg[`RegAddrBus]    wb_waddr_o,
     output  reg                 wb_we_o,
@@ -39,7 +40,11 @@ module mem_wb(
             wb_waddr_o <= `RegAddrNone;
             wb_we_o <= `WriteDisable;
             wb_wdata_o <= `ZeroWord;
-        end else begin
+        end else if ((stop_i[4] == `True) && (stop_i[5] == `False)) begin
+            wb_waddr_o <= `RegAddrNone;
+            wb_we_o <= `WriteDisable;
+            wb_wdata_o <= `ZeroWord;
+        end else if (stop_i[4] == `False) begin
             wb_waddr_o <= mem_waddr_i;
             wb_we_o <= mem_we_i;
             wb_wdata_o <= mem_wdata_i; 
