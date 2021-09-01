@@ -37,7 +37,7 @@ module id(
          input wire[`RegBus]   mem_reg_wdata_i,
          input wire[`RegAddrBus]  mem_reg_waddr_i,
          input wire mem_reg_we_i,
-         input wire[`InstBus] ex_alu_sel_i,
+         input wire[`AluSelBus] ex_alu_sel_i,
 
 
          // regfile 读端口的使能信号
@@ -337,7 +337,7 @@ reg reg1_related;
 reg reg2_related;
 wire pre_inst_is_load;
 
-assign pre_intst_is_load = ex_alu_sel_i == `ALU_LW ? 1'b1 : 1'b0;
+assign pre_inst_is_load = ex_alu_sel_i == `ALU_LW ? 1'b1 : 1'b0;
 
 always @(*)
   begin
