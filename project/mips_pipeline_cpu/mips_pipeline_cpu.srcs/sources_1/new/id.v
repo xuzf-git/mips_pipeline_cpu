@@ -30,6 +30,15 @@ module id(
          input   wire[`RegBus]   reg_rdata1_i,
          input   wire[`RegBus]   reg_rdata2_i,
 
+         input wire[`RegBus]   ex_reg_wdata_i,
+         input wire[`RegAddrBus] ex_reg_waddr_i,
+         input wire ex_reg_we_i,
+
+         input wire[`RegBus]   mem_reg_wdata_i,
+         input wire[`RegAddrBus]  mem_reg_waddr_i,
+         input wire mem_reg_we_i,
+
+
          // regfile 读端口的使能信号
          output  reg    reg_re1_o,
          output  reg    reg_re2_o,
@@ -271,6 +280,14 @@ always @(*)
       begin
         alu_opnd1_o <= `ZeroWord;
       end
+    else if(reg_re1_o == 1'b1 && ex_reg_we_i == 1'b1 && reg_raddr1_o == ex_reg_waddr_i)
+      begin
+        alu_opnd1_o <= ex_reg_wdata_i;
+      end
+    else if(reg_re1_o == 1'b1 && mem_reg_we_i == 1'b1 && reg_raddr1_o == mem_reg_waddr_i)
+      begin
+        alu_opnd1_o <= mem_reg_wdata_i;
+      end
     else if (reg_re1_o == `ReadEnable)
       begin
         alu_opnd1_o <= reg_rdata1_i;
@@ -290,6 +307,14 @@ always @(*)
     if (rst == `RstEnable)
       begin
         alu_opnd2_o <= `ZeroWord;
+      end
+    else if(reg_re2_o == 1'b1 && ex_reg_we_i == 1'b1 && reg_raddr2_o == ex_reg_waddr_i)
+      begin
+        alu_opnd2_o <= ex_reg_wdata_i;
+      end
+    else if(reg_re2_o == 1'b1 && mem_reg_we_i == 1'b1 && reg_raddr2_o == mem_reg_waddr_i)
+      begin
+        alu_opnd2_o <= mem_reg_wdata_i;
       end
     else if (reg_re2_o == `ReadEnable)
       begin
