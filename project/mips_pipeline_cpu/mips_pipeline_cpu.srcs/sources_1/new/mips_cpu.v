@@ -161,6 +161,9 @@ module mips_cpu(
         .ex_reg_waddr_i(ex_mem_waddr_i),
         .ex_reg_we_i(ex_mem_we_i),
 
+        // 来自 EX 模块的指令选择信号，判断 load 相关
+        .ex_alu_sel_i(ex_mem_alu_sel_i),
+
         // 解决隔一条指令的数据相关
         .mem_reg_wdata_i(mem_wb_wdata_i),
         .mem_reg_waddr_i(mem_wb_waddr_i),
