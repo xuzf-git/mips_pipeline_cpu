@@ -57,7 +57,8 @@ module id(
 
          // 对于分支跳转指令
          output  reg[`InstAddrBus]   branch_target_o,
-         output  reg                 branch_flag_o
+         output  reg                 branch_flag_o,
+         output  reg                 stopreq_from_id_o
        );
 
 // 指令是否有效
