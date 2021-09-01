@@ -39,7 +39,7 @@ module id_ex(
          output  reg[`RegBus]        ex_alu_opnd2_o,
          output  reg[`RegAddrBus]    ex_reg_waddr_o,
          output  reg                 ex_reg_we_o,
-         output  wire[`RegBus]       ex_inst_o
+         output  reg[`RegBus]        ex_inst_o
        );
 
 always @(posedge clk)
@@ -67,6 +67,7 @@ always @(posedge clk)
         ex_alu_opnd2_o <= id_alu_opnd2_i;
         ex_reg_waddr_o <= id_reg_waddr_i;
         ex_reg_we_o <= id_reg_we_i;
+        ex_inst_o <= id_inst_i;
       end
   end
 endmodule
