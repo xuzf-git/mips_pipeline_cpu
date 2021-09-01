@@ -60,7 +60,7 @@ always @(posedge clk)
         ex_reg_waddr_o <= `RegAddrNone;
         ex_reg_we_o <= `WriteDisable;
       end
-    else
+    else if(stop_i[2] == 1'b0)
       begin
         ex_alu_sel_o <= id_alu_sel_i;
         ex_alu_opnd1_o <= id_alu_opnd1_i;

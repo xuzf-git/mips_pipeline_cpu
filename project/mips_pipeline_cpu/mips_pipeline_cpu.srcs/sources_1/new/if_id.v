@@ -46,9 +46,10 @@ always @(posedge clk)
       begin
         id_inst_o <= `ZeroWord;
       end
-    else
+    else if (stop_i[1] == 1'b0)
       begin
         id_inst_o <= if_inst_i;
+        id_pc_o <= if_pc_i;
       end
   end
 
