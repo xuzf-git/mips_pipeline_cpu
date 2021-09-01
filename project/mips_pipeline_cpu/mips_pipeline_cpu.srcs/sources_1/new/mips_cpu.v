@@ -135,9 +135,9 @@ module mips_cpu(
         .if_pc_i(if_id_pc_i),
         .if_inst_i(rom_rdata_i),
         .id_pc_o(if_id_pc_o),
-        .id_inst_o(if_id_inst_o)
+        .id_inst_o(if_id_inst_o),
         // 来自 CTRL 模块的暂停信号
-        .stop_i(stop),
+        .stop_i(stop)
     );
 
     // 实例化 ID
@@ -220,9 +220,9 @@ module mips_cpu(
         .ex_alu_opnd2_o(id_ex_alu_opnd2_o),
         .ex_reg_waddr_o(id_ex_reg_waddr_o),
         .ex_reg_we_o(id_ex_reg_we_o),
-        .ex_inst_o(id_ex_inst_o)        
+        .ex_inst_o(id_ex_inst_o),        
         // 来自 CTRL 模块的暂停信号
-        .stop_i(stop),
+        .stop_i(stop)
     );
 
     // 实例化 EX 模块
@@ -262,9 +262,9 @@ module mips_cpu(
         .mem_wdata_o(ex_mem_wdata_o),
         .mem_alu_sel_o(ex_mem_alu_sel_o),
         .mem_ram_addr_o(ex_mem_ram_addr_o),
-        .mem_reg_rt_o(ex_mem_reg_rt_o)
+        .mem_reg_rt_o(ex_mem_reg_rt_o),
         // 来自 CTRL 模块的暂停信号
-        .stop_i(stop),
+        .stop_i(stop)
     );
 
     // 实例化 MEM 模块
@@ -302,9 +302,9 @@ module mips_cpu(
         .mem_wdata_i(mem_wb_wdata_i),
         .wb_waddr_o(mem_wb_waddr_o),
         .wb_we_o(mem_wb_we_o),
-        .wb_wdata_o(mem_wb_wdata_o)
+        .wb_wdata_o(mem_wb_wdata_o),
         // 来自 CTRL 模块的暂停信号
-        .stop_i(stop),
+        .stop_i(stop)
     ); 
 
     // 实例化 WB 模块

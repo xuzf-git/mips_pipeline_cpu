@@ -34,7 +34,7 @@ module ex_mem(
     input  wire[`RegBus]        ex_reg_rt_i,
 
     // 流水线暂停信号
-    input  wire[5:0]            stop_i;
+    input  wire[5:0]            stop_i,
 
     // 输出到访存阶段
     output  reg[`RegAddrBus]    mem_waddr_o,
