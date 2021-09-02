@@ -237,7 +237,7 @@ always @(*)
           reg_re1_o <= `ReadEnable;
           reg_raddr1_o <= opnd_rs;
           reg_re2_o <= `ReadDisable;
-          imm <= {{16{inst_i[15]}}, opnd_im};
+          imm <= {16'b0, opnd_im};
         end
       `OP_ORI:
         begin
@@ -247,7 +247,7 @@ always @(*)
           reg_re1_o <= `ReadEnable;
           reg_raddr1_o <= opnd_rs;
           reg_re2_o <= `ReadDisable;
-          imm <= {{16{inst_i[15]}}, opnd_im};
+          imm <= {16'b0, opnd_im};
         end
       `OP_XORI:
         begin
@@ -257,7 +257,7 @@ always @(*)
           reg_re1_o <= `ReadEnable;
           reg_raddr1_o <= opnd_rs;
           reg_re2_o <= `ReadDisable;
-          imm <= {{16{inst_i[15]}}, opnd_im};
+          imm <= {16'b0, opnd_im};
         end
       `OP_J:
         begin
