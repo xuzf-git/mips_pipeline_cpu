@@ -20,7 +20,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module tb_single_cycle();
+module tb_pipeline();
 
 reg CLOCK_50;
 reg rst;
@@ -35,7 +35,7 @@ initial
 
 always #10 CLOCK_50=~CLOCK_50;
 
-single_cycle single_cycle_real (
+pipeline pipe_line_real (
                .clk(CLOCK_50),
                .rst(rst)
              );
