@@ -28,6 +28,7 @@ module if_id(
          // 来自取指阶段的信号
          input   wire[`InstAddrBus]  if_pc_i,
          input   wire[`InstBus]  if_inst_i,
+         input   wire branch_flag_i,
 
          input wire[5:0] stop_i,
 
@@ -42,7 +43,7 @@ always @(posedge clk)
       begin
         id_inst_o <= `ZeroWord;
       end
-    else if (stop_i[1] == 1'b1 && stop_i[2] == 1'b0)
+    else if (stop_i[1] == 1'b1 && stop_i[2] == 1'b0 || branch_flag_i == 1'b1)
       begin
         id_inst_o <= `ZeroWord;
       end

@@ -81,13 +81,6 @@ wire[4:0] opnd_sa = inst_i[10:6];       // R
 wire[5:0] opnd_func = inst_i[5:0];      // R
 wire[25:0] opnd_addr = inst_i[25:0];    // J
 
-reg jump_flag;
-
-initial
-  begin
-    jump_flag = 1'b0;
-  end
-
 // Ö¸ÁîÒëÂë
 always @(*)
   begin
@@ -165,7 +158,6 @@ always @(*)
                 reg_raddr1_o <= opnd_rs;
                 reg_re2_o <= `ReadDisable;
                 reg_raddr2_o <= opnd_rt;
-                jump_flag <= 1'b1;
                 branch_flag_o <= `True;
                 branch_target_o <= reg_rdata1_i;
               end
@@ -223,7 +215,6 @@ always @(*)
           reg_raddr2_o <= opnd_rt;
           if (reg_rdata1_i == reg_rdata2_i)
             begin
-              jump_flag <= 1'b1;
               branch_flag_o <= `True;
               branch_target_o <= pc_i + {{14{inst_i[15]}}, inst_i[15:0], 2'b00};
             end
@@ -275,7 +266,6 @@ always @(*)
           reg_re1_o <= `ReadDisable;
           reg_re2_o <= `ReadDisable;
           branch_flag_o <= `True;
-          jump_flag <= 1'b1;
           branch_target_o <= {pc_i[31:28], opnd_addr, 2'b00};
         end
       default:
