@@ -66,7 +66,7 @@ module mem(
                 `ALU_LW: begin
                     mem_ram_addr_o <= ex_ram_addr_i;
                     mem_ram_we <= `WriteDisable;
-                    mem_ram_data_o <= ram_data_i;
+                    mem_wdata_o <= ram_data_i;
                 end 
                 `ALU_SW: begin
                     mem_ram_addr_o <= ex_ram_addr_i;
