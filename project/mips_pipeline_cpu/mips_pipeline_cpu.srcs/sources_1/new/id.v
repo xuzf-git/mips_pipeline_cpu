@@ -173,6 +173,8 @@ always @(*)
                     reg_re2_o <= `ReadDisable;
                     reg_raddr2_o <= opnd_rt;
                     jump_flag <= 1'b1;
+                    branch_flag_o <= `True;
+                    branch_target_o <= reg_rdata1_i;
                   end
                 default:
                   begin
@@ -226,9 +228,9 @@ always @(*)
               reg_raddr1_o <= opnd_rs;
               reg_re2_o <= `ReadEnable;
               reg_raddr2_o <= opnd_rt;
-              jump_flag <= 1'b1;
               if (reg_rdata1_i == reg_rdata2_i)
                 begin
+                  jump_flag <= 1'b1;
                   branch_flag_o <= `True;
                   branch_target_o <= pc_i + {{14{inst_i[15]}}, inst_i[15:0], 2'b00};
                 end
