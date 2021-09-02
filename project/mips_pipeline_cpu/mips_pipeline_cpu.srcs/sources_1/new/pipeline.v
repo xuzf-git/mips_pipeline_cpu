@@ -63,7 +63,7 @@ module pipeline(
 
     // 实例化数据存储器 RAM 
     data_ram ram(
-        .a(ram_addr[9:0]),    // [11:2] WORD 地址对齐约束
+        .a(ram_addr[11:2]),    // [11:2] WORD 地址对齐约束
         .d(ram_wdata),
         .clk(clk),
         .we(ram_we),
