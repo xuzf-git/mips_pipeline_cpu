@@ -153,13 +153,11 @@ always @(*)
               begin
                 alu_sel_o <= `AluSelNop;
                 reg_we_o <= `WriteDisable;
-                reg_waddr_o <= opnd_rd;
                 reg_re1_o <= `ReadEnable;
                 reg_raddr1_o <= opnd_rs;
                 reg_re2_o <= `ReadDisable;
-                reg_raddr2_o <= opnd_rt;
                 branch_flag_o <= `True;
-                branch_target_o <= reg_rdata1_i;
+                branch_target_o <= alu_opnd1_o;
               end
             default:
               begin
