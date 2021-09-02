@@ -102,194 +102,186 @@ always @(*)
 
     branch_flag_o <= `False;
     branch_target_o <= `ZeroWord;
+    case (op)
+      `OP_SPECIAL:
+        begin
+          case (opnd_func)
+            `OP_OR:
+              begin
+                alu_sel_o <= `ALU_OR;
+                reg_we_o <= `WriteEnable;
+                reg_waddr_o <= opnd_rd;
+                reg_re1_o <= `ReadEnable;
+                reg_raddr1_o <= opnd_rs;
+                reg_re2_o <= `ReadEnable;
+                reg_raddr2_o <= opnd_rt;
+              end
+            `OP_AND:
+              begin
+                alu_sel_o <= `ALU_AND;
+                reg_we_o <= `WriteEnable;
+                reg_waddr_o <= opnd_rd;
+                reg_re1_o <= `ReadEnable;
+                reg_raddr1_o <= opnd_rs;
+                reg_re2_o <= `ReadEnable;
+                reg_raddr2_o <= opnd_rt;
+              end
+            `OP_ADD:
+              begin
+                alu_sel_o <= `ALU_ADD;
+                reg_we_o <= `WriteEnable;
+                reg_waddr_o <= opnd_rd;
+                reg_re1_o <= `ReadEnable;
+                reg_raddr1_o <= opnd_rs;
+                reg_re2_o <= `ReadEnable;
+                reg_raddr2_o <= opnd_rt;
+              end
+            `OP_XOR:
+              begin
+                alu_sel_o <= `ALU_XOR;
+                reg_we_o <= `WriteEnable;
+                reg_waddr_o <= opnd_rd;
+                reg_re1_o <= `ReadEnable;
+                reg_raddr1_o <= opnd_rs;
+                reg_re2_o <= `ReadEnable;
+                reg_raddr2_o <= opnd_rt;
+              end
+            `OP_NOR:
+              begin
+                alu_sel_o <= `ALU_NOR;
+                reg_we_o <= `WriteEnable;
+                reg_waddr_o <= opnd_rd;
+                reg_re1_o <= `ReadEnable;
+                reg_raddr1_o <= opnd_rs;
+                reg_re2_o <= `ReadEnable;
+                reg_raddr2_o <= opnd_rt;
+              end
+            `OP_JR:
+              begin
+                alu_sel_o <= `AluSelNop;
+                reg_we_o <= `WriteDisable;
+                reg_waddr_o <= opnd_rd;
+                reg_re1_o <= `ReadEnable;
+                reg_raddr1_o <= opnd_rs;
+                reg_re2_o <= `ReadDisable;
+                reg_raddr2_o <= opnd_rt;
+                jump_flag <= 1'b1;
+                branch_flag_o <= `True;
+                branch_target_o <= reg_rdata1_i;
+              end
+            default:
+              begin
 
-    if(jump_flag == 1'b1)
-      begin
-        jump_flag = 1'b0;
-      end
-    else
-      begin
-        case (op)
-          `OP_SPECIAL:
+              end
+          endcase
+        end
+      `OP_LUI:
+        begin
+          alu_sel_o <= `ALU_OR;
+          reg_we_o <= `WriteEnable;
+          reg_waddr_o <= opnd_rt;
+          reg_re1_o <= `ReadEnable;
+          reg_raddr1_o <= opnd_rs;
+          reg_re2_o <= `ReadDisable;
+          imm <= {opnd_im, 16'b0};
+        end
+      `OP_ADDIU:
+        begin
+          alu_sel_o <= `ALU_ADD;
+          reg_we_o <= `WriteEnable;
+          reg_waddr_o <= opnd_rt;
+          reg_re1_o <= `ReadEnable;
+          reg_raddr1_o <= opnd_rs;
+          reg_re2_o <= `ReadDisable;
+          imm <= {16'b0, opnd_im};
+        end
+      `OP_LW:
+        begin
+          alu_sel_o <= `ALU_LW;
+          reg_we_o <= `WriteEnable;   // 读出的数据写入 rt 寄存器
+          reg_waddr_o <= opnd_rt;
+          reg_re1_o <= `ReadEnable;   // 存储器地址由 rs 寄存器和指令立即数给出
+          reg_raddr1_o <= opnd_rs;
+          reg_re2_o <= `ReadDisable;
+        end
+      `OP_SW:
+        begin
+          alu_sel_o <= `ALU_SW;
+          reg_we_o <= `WriteDisable;
+          reg_re1_o <= `ReadEnable;   // 存储器地址由 rs 寄存器和指令立即数给出
+          reg_raddr1_o <= opnd_rs;
+          reg_re2_o <= `ReadEnable;   // 写入数据由 rt 寄存器给出
+          reg_raddr2_o <= opnd_rt;
+        end
+      `OP_BEQ:
+        begin
+          alu_sel_o <= `AluSelNop;
+          reg_we_o <= `WriteDisable;
+          reg_re1_o <= `ReadEnable;
+          reg_raddr1_o <= opnd_rs;
+          reg_re2_o <= `ReadEnable;
+          reg_raddr2_o <= opnd_rt;
+          if (reg_rdata1_i == reg_rdata2_i)
             begin
-              case (opnd_func)
-                `OP_OR:
-                  begin
-                    alu_sel_o <= `ALU_OR;
-                    reg_we_o <= `WriteEnable;
-                    reg_waddr_o <= opnd_rd;
-                    reg_re1_o <= `ReadEnable;
-                    reg_raddr1_o <= opnd_rs;
-                    reg_re2_o <= `ReadEnable;
-                    reg_raddr2_o <= opnd_rt;
-                  end
-                `OP_AND:
-                  begin
-                    alu_sel_o <= `ALU_AND;
-                    reg_we_o <= `WriteEnable;
-                    reg_waddr_o <= opnd_rd;
-                    reg_re1_o <= `ReadEnable;
-                    reg_raddr1_o <= opnd_rs;
-                    reg_re2_o <= `ReadEnable;
-                    reg_raddr2_o <= opnd_rt;
-                  end
-                `OP_ADD:
-                  begin
-                    alu_sel_o <= `ALU_ADD;
-                    reg_we_o <= `WriteEnable;
-                    reg_waddr_o <= opnd_rd;
-                    reg_re1_o <= `ReadEnable;
-                    reg_raddr1_o <= opnd_rs;
-                    reg_re2_o <= `ReadEnable;
-                    reg_raddr2_o <= opnd_rt;
-                  end
-                `OP_XOR:
-                  begin
-                    alu_sel_o <= `ALU_XOR;
-                    reg_we_o <= `WriteEnable;
-                    reg_waddr_o <= opnd_rd;
-                    reg_re1_o <= `ReadEnable;
-                    reg_raddr1_o <= opnd_rs;
-                    reg_re2_o <= `ReadEnable;
-                    reg_raddr2_o <= opnd_rt;
-                  end
-                `OP_NOR:
-                  begin
-                    alu_sel_o <= `ALU_NOR;
-                    reg_we_o <= `WriteEnable;
-                    reg_waddr_o <= opnd_rd;
-                    reg_re1_o <= `ReadEnable;
-                    reg_raddr1_o <= opnd_rs;
-                    reg_re2_o <= `ReadEnable;
-                    reg_raddr2_o <= opnd_rt;
-                  end
-                `OP_JR:
-                  begin
-                    alu_sel_o <= `AluSelNop;
-                    reg_we_o <= `WriteDisable;
-                    reg_waddr_o <= opnd_rd;
-                    reg_re1_o <= `ReadEnable;
-                    reg_raddr1_o <= opnd_rs;
-                    reg_re2_o <= `ReadDisable;
-                    reg_raddr2_o <= opnd_rt;
-                    jump_flag <= 1'b1;
-                    branch_flag_o <= `True;
-                    branch_target_o <= reg_rdata1_i;
-                  end
-                default:
-                  begin
-
-                  end
-              endcase
-            end
-          `OP_LUI:
-            begin
-              alu_sel_o <= `ALU_OR;
-              reg_we_o <= `WriteEnable;
-              reg_waddr_o <= opnd_rt;
-              reg_re1_o <= `ReadEnable;
-              reg_raddr1_o <= opnd_rs;
-              reg_re2_o <= `ReadDisable;
-              imm <= {opnd_im, 16'b0};
-            end
-          `OP_ADDIU:
-            begin
-              alu_sel_o <= `ALU_ADD;
-              reg_we_o <= `WriteEnable;
-              reg_waddr_o <= opnd_rt;
-              reg_re1_o <= `ReadEnable;
-              reg_raddr1_o <= opnd_rs;
-              reg_re2_o <= `ReadDisable;
-              imm <= {16'b0, opnd_im};
-            end
-          `OP_LW:
-            begin
-              alu_sel_o <= `ALU_LW;
-              reg_we_o <= `WriteEnable;   // 读出的数据写入 rt 寄存器
-              reg_waddr_o <= opnd_rt;
-              reg_re1_o <= `ReadEnable;   // 存储器地址由 rs 寄存器和指令立即数给出
-              reg_raddr1_o <= opnd_rs;
-              reg_re2_o <= `ReadDisable;
-            end
-          `OP_SW:
-            begin
-              alu_sel_o <= `ALU_SW;
-              reg_we_o <= `WriteDisable;
-              reg_re1_o <= `ReadEnable;   // 存储器地址由 rs 寄存器和指令立即数给出
-              reg_raddr1_o <= opnd_rs;
-              reg_re2_o <= `ReadEnable;   // 写入数据由 rt 寄存器给出
-              reg_raddr2_o <= opnd_rt;
-            end
-          `OP_BEQ:
-            begin
-              alu_sel_o <= `AluSelNop;
-              reg_we_o <= `WriteDisable;
-              reg_re1_o <= `ReadEnable;
-              reg_raddr1_o <= opnd_rs;
-              reg_re2_o <= `ReadEnable;
-              reg_raddr2_o <= opnd_rt;
-              if (reg_rdata1_i == reg_rdata2_i)
-                begin
-                  jump_flag <= 1'b1;
-                  branch_flag_o <= `True;
-                  branch_target_o <= pc_i + {{14{inst_i[15]}}, inst_i[15:0], 2'b00};
-                end
-            end
-          `OP_ADDI:
-            begin
-              alu_sel_o <= `ALU_ADD;
-              reg_we_o <= `WriteEnable;
-              reg_waddr_o <= opnd_rt;
-              reg_re1_o <= `ReadEnable;
-              reg_raddr1_o <= opnd_rs;
-              reg_re2_o <= `ReadDisable;
-              imm <= {{16{inst_i[15]}}, opnd_im};
-            end
-          `OP_ANDI:
-            begin
-              alu_sel_o <= `ALU_AND;
-              reg_we_o <= `WriteEnable;
-              reg_waddr_o <= opnd_rt;
-              reg_re1_o <= `ReadEnable;
-              reg_raddr1_o <= opnd_rs;
-              reg_re2_o <= `ReadDisable;
-              imm <= {{16{inst_i[15]}}, opnd_im};
-            end
-          `OP_ORI:
-            begin
-              alu_sel_o <= `ALU_OR;
-              reg_we_o <= `WriteEnable;
-              reg_waddr_o <= opnd_rt;
-              reg_re1_o <= `ReadEnable;
-              reg_raddr1_o <= opnd_rs;
-              reg_re2_o <= `ReadDisable;
-              imm <= {{16{inst_i[15]}}, opnd_im};
-            end
-          `OP_XORI:
-            begin
-              alu_sel_o <= `ALU_XOR;
-              reg_we_o <= `WriteEnable;
-              reg_waddr_o <= opnd_rt;
-              reg_re1_o <= `ReadEnable;
-              reg_raddr1_o <= opnd_rs;
-              reg_re2_o <= `ReadDisable;
-              imm <= {{16{inst_i[15]}}, opnd_im};
-            end
-          `OP_J:
-            begin
-              alu_sel_o <= `AluSelNop;
-              reg_we_o <= `WriteDisable;
-              reg_re1_o <= `ReadDisable;
-              reg_re2_o <= `ReadDisable;
-              branch_flag_o <= `True;
               jump_flag <= 1'b1;
-              branch_target_o <= {pc_i[31:28], opnd_addr, 2'b00};
+              branch_flag_o <= `True;
+              branch_target_o <= pc_i + {{14{inst_i[15]}}, inst_i[15:0], 2'b00};
             end
-          default:
-            begin
-            end
-        endcase
-      end
+        end
+      `OP_ADDI:
+        begin
+          alu_sel_o <= `ALU_ADD;
+          reg_we_o <= `WriteEnable;
+          reg_waddr_o <= opnd_rt;
+          reg_re1_o <= `ReadEnable;
+          reg_raddr1_o <= opnd_rs;
+          reg_re2_o <= `ReadDisable;
+          imm <= {{16{inst_i[15]}}, opnd_im};
+        end
+      `OP_ANDI:
+        begin
+          alu_sel_o <= `ALU_AND;
+          reg_we_o <= `WriteEnable;
+          reg_waddr_o <= opnd_rt;
+          reg_re1_o <= `ReadEnable;
+          reg_raddr1_o <= opnd_rs;
+          reg_re2_o <= `ReadDisable;
+          imm <= {{16{inst_i[15]}}, opnd_im};
+        end
+      `OP_ORI:
+        begin
+          alu_sel_o <= `ALU_OR;
+          reg_we_o <= `WriteEnable;
+          reg_waddr_o <= opnd_rt;
+          reg_re1_o <= `ReadEnable;
+          reg_raddr1_o <= opnd_rs;
+          reg_re2_o <= `ReadDisable;
+          imm <= {{16{inst_i[15]}}, opnd_im};
+        end
+      `OP_XORI:
+        begin
+          alu_sel_o <= `ALU_XOR;
+          reg_we_o <= `WriteEnable;
+          reg_waddr_o <= opnd_rt;
+          reg_re1_o <= `ReadEnable;
+          reg_raddr1_o <= opnd_rs;
+          reg_re2_o <= `ReadDisable;
+          imm <= {{16{inst_i[15]}}, opnd_im};
+        end
+      `OP_J:
+        begin
+          alu_sel_o <= `AluSelNop;
+          reg_we_o <= `WriteDisable;
+          reg_re1_o <= `ReadDisable;
+          reg_re2_o <= `ReadDisable;
+          branch_flag_o <= `True;
+          jump_flag <= 1'b1;
+          branch_target_o <= {pc_i[31:28], opnd_addr, 2'b00};
+        end
+      default:
+        begin
+        end
+    endcase
   end
 
 // 获取源操作数 alu_opnd1
