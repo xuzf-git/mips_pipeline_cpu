@@ -137,7 +137,9 @@ module mips_cpu(
         .id_pc_o(if_id_pc_o),
         .id_inst_o(if_id_inst_o),
         // 来自 CTRL 模块的暂停信号
-        .stop_i(stop)
+        .stop_i(stop),
+        // 来自 ID 模块的跳转信号，解决转移相关
+        .branch_flag_i(branch_flag)
     );
 
     // 实例化 ID
