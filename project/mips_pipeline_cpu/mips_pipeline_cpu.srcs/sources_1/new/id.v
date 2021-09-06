@@ -59,7 +59,7 @@ module id(
          // 对于分支跳转指令
          output  reg[`InstAddrBus]   branch_target_o,
          output  reg                 branch_flag_o,
-         output  wire                 stopreq_from_id_o
+         output  wire                stopreq_from_id_o
        );
 
 // 指令是否有效
@@ -339,11 +339,7 @@ assign pre_inst_is_load = ex_alu_sel_i == `ALU_LW ? 1'b1 : 1'b0;
 always @(*)
   begin
     reg1_related <= 1'b0;
-    if(rst == `RstEnable)
-      begin
-        alu_opnd1_o <= `ZeroWord;
-      end
-    else if(pre_inst_is_load == 1'b1 && ex_reg_waddr_i == reg_raddr1_o && reg_re1_o == 1'b1)
+    if(pre_inst_is_load == 1'b1 && ex_reg_waddr_i == reg_raddr1_o && reg_re1_o == 1'b1)
       begin
         reg1_related  <= 1'b1;
       end
@@ -352,11 +348,7 @@ always @(*)
 always @(*)
   begin
     reg2_related <= 1'b0;
-    if(rst == `RstEnable)
-      begin
-        alu_opnd2_o <= `ZeroWord;
-      end
-    else if(pre_inst_is_load == 1'b1 && ex_reg_waddr_i == reg_raddr2_o && reg_re2_o == 1'b1)
+    if(pre_inst_is_load == 1'b1 && ex_reg_waddr_i == reg_raddr2_o && reg_re2_o == 1'b1)
       begin
         reg2_related <= 1'b1;
       end
