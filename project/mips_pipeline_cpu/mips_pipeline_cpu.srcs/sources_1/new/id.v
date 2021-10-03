@@ -341,6 +341,7 @@ always @(*)
     reg1_related <= 1'b0;
     if(pre_inst_is_load == 1'b1 && ex_reg_waddr_i == reg_raddr1_o && reg_re1_o == 1'b1)
       begin
+      
         reg1_related  <= 1'b1;
       end
   end
